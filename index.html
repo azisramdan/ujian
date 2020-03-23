@@ -1,0 +1,65 @@
+ 
+<html>
+    <head>
+        <title>drink</title>
+        <!-- <link rel="stylesheet" type="text/css" href="main.css"> -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    </head>
+    <body>
+            <nav class="navbar navbar-expand-lg">
+            <a class="navbar-brand" href="index.html">
+              <h3>Drink</h3>
+          </a>
+           <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                  <a class="nav-link" href="index.html">Drink<span class="sr-only">(current)</span></a>
+                </li>
+             <li class="nav-item active">
+                  <a class="nav-link" href="about.html">About <span class="sr-only">(current)</span></a>
+                </li>
+              </ul>
+              
+          </div>
+      </nav>
+      <h1 align="center">Drink</h1>
+        <div class="container mt-3" style="margin-left: 130px;">
+            <div class="row mb-3" id="drinks"></div>
+        </div>
+        
+           <script type="text/javascript">
+            // fetch('https://www.themealdb.com/api/json/v1/1/categories.php')
+            //     .then(res => res.json())
+            //     .then(data => console.log(data))
+        
+            fetch("https://www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita")
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(data) {
+                console.log(data)
+                let drinks = "";
+
+                data.drinks.forEach((mealData => {
+                    let strCategory = "";
+                    if (mealData.strCategory) {
+                        strCategory = mealData.strCategory.slice(0,100)
+                    }
+                    drinks+=
+                              `  <div class="col-3">
+                                <img class="card-img-top" src="${mealData.strDrinkThumb}">
+                                 <div class="card-body"> <a>
+                                <h5 class="card-title" ${mealData.strDrink}</h5></a>
+                                <p class"card-text">${strCategory}</p>
+                                </div>                          
+                                </div>
+                        `;
+                        
+                    document.getElementById('drinks').innerHTML = drinks;
+
+                }));
+            });         
+        </script>
+    </body>
+</html>
+
